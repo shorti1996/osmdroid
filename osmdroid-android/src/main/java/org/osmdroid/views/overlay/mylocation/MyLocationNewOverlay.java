@@ -298,11 +298,15 @@ public class MyLocationNewOverlay extends Overlay implements IMyLocationConsumer
 
 	@Override
 	public boolean onTouchEvent(final MotionEvent event, final MapView mapView) {
-		if (event.getAction() == MotionEvent.ACTION_MOVE) {
-			if (enableAutoStop)
-				this.disableFollowLocation();
-			else
-				return true;//prevent the pan
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			if (enableAutoStop) {
+                mMapController.stopAnimation(false);
+//                mMapController.stopPanning();
+                this.disableFollowLocation();
+            }
+			else {
+                return true;//prevent the pan
+            }
 		}
 
 		return super.onTouchEvent(event, mapView);
@@ -426,9 +430,9 @@ public class MyLocationNewOverlay extends Overlay implements IMyLocationConsumer
 			mHandler.postAtTime(new Runnable() {
 				@Override
 				public void run() {
-					setLocation(location);
+                    setLocation(location);
 
-					for (final Runnable runnable : mRunOnFirstFix) {
+                    for (final Runnable runnable : mRunOnFirstFix) {
 						new Thread(runnable).start();
 					}
 					mRunOnFirstFix.clear();
@@ -440,9 +444,9 @@ public class MyLocationNewOverlay extends Overlay implements IMyLocationConsumer
 	protected void setLocation(Location location) {
 		mLocation = location;
 		mGeoPoint.setCoords(mLocation.getLatitude(), mLocation.getLongitude());
-		if (mIsFollowing) {
-			mMapController.animateTo(mGeoPoint);
-		} else {
+        if (mIsFollowing) {
+            mMapController.animateTo(mGeoPoint);
+        } else {
 			mMapView.postInvalidate();
 		}
 	}
