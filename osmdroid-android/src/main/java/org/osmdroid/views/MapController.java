@@ -245,9 +245,6 @@ public class MapController implements IMapController, OnFirstLayoutListener {
         // the animation in the middle. Maybe we could have it cancel the zoom operation and jump
         // back to original zoom level?
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (mCurrentAnimator != null) {
-                mCurrentAnimator.cancel();
-            }
             final Animator currentAnimator = this.mCurrentAnimator;
             if (mMapView.mIsAnimating.get()) {
                 currentAnimator.end();
@@ -490,7 +487,6 @@ public class MapController implements IMapController, OnFirstLayoutListener {
 
         @Override
         public void onAnimationCancel(Animator animator) {
-//            mMapController.onAnimationEnd();
         }
 
         @Override

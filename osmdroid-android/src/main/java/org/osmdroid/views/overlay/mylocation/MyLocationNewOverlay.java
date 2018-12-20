@@ -301,7 +301,6 @@ public class MyLocationNewOverlay extends Overlay implements IMyLocationConsumer
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
 			if (enableAutoStop) {
                 mMapController.stopAnimation(false);
-//                mMapController.stopPanning();
                 this.disableFollowLocation();
             }
 			else {
