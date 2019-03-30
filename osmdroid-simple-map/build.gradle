@@ -37,4 +37,5 @@ android {
 dependencies {
     compile "com.android.support:appcompat-v7:${project.property('android-support.version')}"
     compile project(':osmdroid-android')
+    compile 'com.karumi:dexter:5.0.0'
 }
